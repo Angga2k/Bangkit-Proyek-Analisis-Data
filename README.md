@@ -22,5 +22,5 @@
 
 4. Run the application locally:
    ```bash
-   streamlit run dashboard.py
+   streamlit run dashboard/dashboard.py
    ```

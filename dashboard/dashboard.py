@@ -14,6 +14,7 @@ def order_payments(df):
 
 def order_payments_value(df):
     payment_value_analysis = df.groupby('payment_type')['payment_value'].mean().reset_index(name='average_payment_value')
+    payment_value_analysis.drop(payment_value_analysis[payment_value_analysis['payment_type'] == 'not_defined'].index, inplace=True)
     return payment_value_analysis
 
 def rfm_analysis(df):
@@ -103,6 +104,7 @@ plt.legend()
 st.pyplot(plt)
 plt.clf()  # Clear plot to avoid overlap
 
+palette="Blues"
 # Payment Method Frequency Barplot
 st.subheader("Payment Method Frequency")
 sns.set_style("whitegrid")
@@ -152,7 +154,7 @@ rfm_df['short_customer_id'] = rfm_df['customer_id'].apply(lambda x: x[:8])  # Di
 fig, ax = plt.subplots(nrows=1, ncols=3, figsize=(30, 6))
 
 # Use different color palette for RFM bars
-colors = sns.color_palette("Set2")
+colors = ["#A66E38", "#A66E38", "#A66E38", "#A66E38", "#A66E38"]
 
 sns.barplot(y="recency", x="short_customer_id", data=rfm_df.sort_values(by="recency", ascending=True).head(5), palette=colors, ax=ax[0])
 ax[0].set_ylabel(None)
